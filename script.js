@@ -46,10 +46,14 @@ function selectAnswer(e){
     const correct = selectedButton.dataset.correct
     setStatus(document.body, correct)
     Array.from(answerElements.children).forEach((button) => {
+        button.disabled = true;
         setStatus(button, button.dataset.correct)
     })
     if(correct){
         correctAnswered++
+        correctNo.innerText = correctAnswered
+    } else if(!correct && correctAnswered > 0){
+        correctAnswered--
         correctNo.innerText = correctAnswered
     }
     if(shuffledQuestions.length > currentQuestionIndex + 1 ){
@@ -78,6 +82,9 @@ function clearStatus(element) {
 function resetState(){
     clearStatus(document.body)
     nextBtn.classList.add('hide')
+    Array.from(answerElements.children).forEach(button => {
+        button.disabled = false; // Re-enable the button
+    });
     while(answerElements.firstChild){
         answerElements.removeChild(answerElements.firstChild)
     }

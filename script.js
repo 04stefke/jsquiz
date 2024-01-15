@@ -1,19 +1,79 @@
 const startBtn = document.getElementById('start-btn')
 const nextBtn = document.getElementById('next-btn')
 const questionElement = document.getElementById('questionContainer')
+const questionText = document.getElementById('question')
+const answerElements = document.getElementById('answers-btn')
+let shuffledQuestions, currentQuestionIndex
 startBtn.addEventListener('click', startGame)
-nextBtn.addEventListener('click')
+nextBtn.addEventListener('click', () => {
+    currentQuestionIndex++
+    setNextQuestion()
+})
 
 function startGame() {
     startBtn.classList.add('hide')
+    shuffledQuestions = questions.sort(() => Math.random() - .5)
+    currentQuestionIndex = 0
     questionElement.classList.remove('hide')
     setNextQuestion()
 }
 
 function setNextQuestion() {
-    nextBtn.classList.remove('hide')
+    resetState()
+    showQuestion(shuffledQuestions[currentQuestionIndex])
 }
 
+function showQuestion(question){
+    questionText.innerText = question.question
+    question.answers.forEach(answer => {
+        const button = document.createElement('button')
+        button.innerText = answer.text
+        button.classList.add('btn')
+        if(answer.correct){
+            button.dataset.correct = answer.correct
+        }
+        button.addEventListener('click', selectAnswer)
+        answerElements.appendChild(button)
+    });
+}
+
+function selectAnswer(e){
+    const selectedButton = e.target
+    const correct = selectedButton.dataset.correct
+    setStatus(document.body, correct)
+    Array.from(answerElements.children).forEach((button) => {
+        setStatus(button, button.dataset.correct)
+    })
+    if(shuffledQuestions.length > currentQuestionIndex + 1 ){
+        nextBtn.classList.remove('hide')
+    } else{
+        startBtn.innerText = 'Restart'
+        startBtn.classList.remove('hide')
+    }
+}
+
+function setStatus(element, correct) {
+
+    clearStatus(element)
+    if(correct){
+        element.classList.add('correct')
+    } else {
+        element.classList.add('wrong')
+    }
+}
+
+function clearStatus(element) {
+    element.classList.remove('correct')
+    element.classList.remove('wrong')
+}
+
+function resetState(){
+    clearStatus(document.body)
+    nextBtn.classList.add('hide')
+    while(answerElements.firstChild){
+        answerElements.removeChild(answerElements.firstChild)
+    }
+}
 
 const questions = [
     {

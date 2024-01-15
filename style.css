@@ -1,0 +1,88 @@
+*,*::before,*::after{
+    box-sizing: border-box;
+    font-family: 'Lato', sans-serif;
+}
+
+:root{
+    --wrong: #FF1E00;
+    --neutral: #e8f9fd;
+    --correct: #06FF00;
+    --card-bg: #525252;
+    --neutral-btn: #b8b9b9;
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    background-color: var(--neutral);
+}
+
+body.correct{
+    background-color: var(--correct);
+}
+
+body.wrong{
+    background-color: var(--wrong);
+}
+
+.container{
+    background-color: var(--card-bg);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0px 0px 10px 2px;
+}
+
+.question{
+    font-size: 30px;
+    text-transform: capitalize;
+    padding-bottom: 20px;
+}
+
+.btn-grid{
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    grid-template-rows: repeat(2, 50px);
+    gap: 5px;
+    margin-bottom: 20px;
+}
+
+.btn{
+    background-color: var(--neutral-btn);
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+}
+
+.btn:hover{
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn.correct{
+    background-color: var(--correct);
+}
+
+.btn.wrong{
+    background-color: var(--wrong);
+}
+
+.start-btn, .next-btn{
+    font-size: 50px;
+}
+
+.controls{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hide{
+    display: none;
+}
+

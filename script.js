@@ -3,7 +3,9 @@ const nextBtn = document.getElementById('next-btn')
 const questionElement = document.getElementById('questionContainer')
 const questionText = document.getElementById('question')
 const answerElements = document.getElementById('answers-btn')
+const correctNo = document.getElementById('correct-number')
 let shuffledQuestions, currentQuestionIndex
+let correctAnswered = 0
 startBtn.addEventListener('click', startGame)
 nextBtn.addEventListener('click', () => {
     currentQuestionIndex++
@@ -16,6 +18,8 @@ function startGame() {
     currentQuestionIndex = 0
     questionElement.classList.remove('hide')
     setNextQuestion()
+    correctAnswered = 0
+    correctNo.innerText = correctAnswered
 }
 
 function setNextQuestion() {
@@ -44,6 +48,10 @@ function selectAnswer(e){
     Array.from(answerElements.children).forEach((button) => {
         setStatus(button, button.dataset.correct)
     })
+    if(correct){
+        correctAnswered++
+        correctNo.innerText = correctAnswered
+    }
     if(shuffledQuestions.length > currentQuestionIndex + 1 ){
         nextBtn.classList.remove('hide')
     } else{
